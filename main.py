@@ -3,5 +3,5 @@ from fastapi import FastAPI
 app = FastAPI()
 
 @app.get("/")
-def root():
+async def read_root():
     return {"status": "LoopArchitect backend is live"}
