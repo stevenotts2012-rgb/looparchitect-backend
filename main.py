@@ -1,12 +1,12 @@
 import os
+from typing import Optional
+
+import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
-import uvicorn
 
 app = FastAPI()
 
-
-from typing import Optional
 
 class GenerateRequest(BaseModel):
     bpm: Optional[int] = None
@@ -16,8 +16,6 @@ class GenerateRequest(BaseModel):
     energy: Optional[str] = None
     genre: Optional[str] = None
     loop_length_bars: Optional[int] = None
-
-    
 
 
 @app.get("/")
@@ -39,13 +37,11 @@ async def generate(data: GenerateRequest):
         "mood": "Dark",
         "energy": "High",
         "genre": "Trap",
-        "loop_length_bars": 8
+        "loop_length_bars": 8,
     }
 
-    user_data = data.dict(exclude_unset=True)
-
+    user_data = data.model_dump(exclude_unset=True)
     final_output = {**defaults, **user_data}
-
     return final_output
 
 
