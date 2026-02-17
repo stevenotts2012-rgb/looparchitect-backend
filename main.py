@@ -6,8 +6,18 @@ import uvicorn
 app = FastAPI()
 
 
+from typing import Optional
+
 class GenerateRequest(BaseModel):
-    test: str
+    bpm: Optional[int] = None
+    key: Optional[str] = None
+    scale: Optional[str] = None
+    mood: Optional[str] = None
+    energy: Optional[str] = None
+    genre: Optional[str] = None
+    loop_length_bars: Optional[int] = None
+
+    
 
 
 @app.get("/")
