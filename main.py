@@ -32,10 +32,21 @@ def health():
 
 @app.post("/generate")
 async def generate(data: GenerateRequest):
-    return {
-        "message": "Generate endpoint working",
-        "you_sent": data
+    defaults = {
+        "bpm": 140,
+        "key": "F minor",
+        "scale": "Natural Minor",
+        "mood": "Dark",
+        "energy": "High",
+        "genre": "Trap",
+        "loop_length_bars": 8
     }
+
+    user_data = data.dict(exclude_unset=True)
+
+    final_output = {**defaults, **user_data}
+
+    return final_output
 
 
 if __name__ == "__main__":
